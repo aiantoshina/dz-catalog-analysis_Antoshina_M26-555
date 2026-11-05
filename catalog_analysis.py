@@ -64,3 +64,30 @@ def decode_label(year):
         case _:
             return "неизвестно"
         
+#Этап 3
+#Названия всех фильмов, которые НЕ относятся к жанру "comedy"
+print("--- Не комедии ---")
+for m in movies:
+    if "comedy" in m["genres"]:
+        continue
+    print(m["title"])
+
+#Поиск первого по порядку в списке фильма с рейтингом выше 9.0
+print("--- Поиск первого фильма с рейтингом > 9.0 ---")
+i = 0
+while i < len(movies):
+    if movies[i]["rating"] > 9.0:
+        print(f"Найден: {movies[i]['title']}")
+        break
+    i += 1
+else:
+    print("Шедевров не найдено")
+
+#Количество фильмов длиннее threshold минут
+def count_long_movies(movies, threshold=120):
+    """Считает количество фильмов длиннее threshold минут. Использует for."""
+    count = 0
+    for m in movies:
+        if m["duration_min"] > threshold:
+            count += 1
+    return count       
