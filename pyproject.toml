@@ -1,0 +1,7 @@
+[project]
+name = "dz-catalog-analysis-antoshina-m26-555"
+version = "0.1.0"
+description = "Анализ каталога файлов"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
