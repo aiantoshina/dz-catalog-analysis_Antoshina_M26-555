@@ -91,3 +91,25 @@ def count_long_movies(movies, threshold=120):
         if m["duration_min"] > threshold:
             count += 1
     return count       
+
+#Этап 4
+def normalize_title(title):
+    """Приводит строку к формату Title Case."""
+    words = title.split()
+    res = []
+    for w in words:
+        if w:
+            res.append(w[0].upper() + w[1:])
+    return " ".join(res)
+
+def make_slug(title):
+    """Превращает нормализованное название в «слаг» вида the-quiet-algorithm."""
+    norm = normalize_title(title)
+    return norm.lower().replace(" ", "-")
+
+def format_report_line(movie):
+    """Возвращает единую строку с описанием фильма."""
+    title = normalize_title(movie["title"])
+    duration = duration_in_hours(movie["duration_min"])
+    genres = ", ".join(sorted(movie["genres"]))
+    return f'"{title}" ({movie["year"]}) - {movie["rating"]}/10, {duration}, жанры: {genres}'
