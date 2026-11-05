@@ -66,14 +66,12 @@ def decode_label(year):
         
 #Этап 3
 #Названия всех фильмов, которые НЕ относятся к жанру "comedy"
-print("--- Не комедии ---")
 for m in movies:
     if "comedy" in m["genres"]:
         continue
     print(m["title"])
 
 #Поиск первого по порядку в списке фильма с рейтингом выше 9.0
-print("--- Поиск первого фильма с рейтингом > 9.0 ---")
 i = 0
 while i < len(movies):
     if movies[i]["rating"] > 9.0:
@@ -170,3 +168,18 @@ def genres_only_in_one(movies_a, movies_b):
     for m in movies_b:
         genres_b.update(m["genres"])
     return genres_a - genres_b
+
+#Этап 8
+def iter_high_rated(movies, min_rating=8.0):
+    """Генератор, лениво отдающий фильмы с рейтингом >= min_rating."""
+    for m in movies:
+        if m["rating"] >= min_rating:
+            yield m
+
+#Демонстрация работы функции-генератора
+for movie in iter_high_rated(movies):
+    print(format_report_line(movie))
+
+#Генераторное выражение, которое считает суммарную длительность всех фильмов с рейтингом выше 7 в минутах
+sum_duration = sum(m["duration_min"] for m in movies if m["rating"] > 7)
+print(f"Суммарная длительность фильмов с рейтингом > 7: {sum_duration} мин.")
