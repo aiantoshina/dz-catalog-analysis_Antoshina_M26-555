@@ -148,3 +148,25 @@ def high_rated_dict(movies):
     """Возвращает словарь {title: rating} для фильмов с рейтингом выше среднего."""
     avg = average_rating(movies)
     return {m["title"]: m["rating"] for m in movies if m["rating"] > avg}
+
+#Этап 7
+def all_genres(movies):
+    """Возвращает множество всех уникальных жанров каталога."""
+    res = set()
+    for m in movies:
+        res.update(m["genres"])
+    return res
+
+def common_actors(movie1, movie2):
+    """Возвращает множество актеров, снимавшихся в обоих фильмах."""
+    return set(movie1["actors"]) & set(movie2["actors"])
+
+def genres_only_in_one(movies_a, movies_b):
+    """Возвращает жанры, встречающиеся в movies_a, но не встречающиеся в movies_b."""
+    genres_a = set()
+    for m in movies_a:
+        genres_a.update(m["genres"])
+    genres_b = set()
+    for m in movies_b:
+        genres_b.update(m["genres"])
+    return genres_a - genres_b
