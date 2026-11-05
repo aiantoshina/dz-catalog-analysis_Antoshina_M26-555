@@ -117,11 +117,18 @@ def titles_sorted_by_rating(movies):
     """Возвращает список названий фильмов, отсортированных по убыванию рейтинга."""
     sorted_movies = sorted(movies, key=lambda m: m["rating"], reverse=True)
     return [m["title"] for m in sorted_movies]
+#Демонстрация работы функции
+titles = titles_sorted_by_rating(movies)
+for title in titles:
+    print(title)
 
 def top_n_by_rating(movies, n=3):
     """Возвращает список из n кортежей (title, rating) — топ по рейтингу."""
     sorted_movies = sorted(movies, key=lambda m: m["rating"], reverse=True)
     return [(m["title"], m["rating"]) for m in sorted_movies[:n]]
+#Демонстрация работы функции
+top3 = top_n_by_rating(movies, 3)
+print(top3)
 
 #Этап 6
 def count_by_genre(movies):
