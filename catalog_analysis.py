@@ -190,3 +190,30 @@ for movie in iter_high_rated(movies):
 #Генераторное выражение, которое считает суммарную длительность всех фильмов с рейтингом выше 7 в минутах
 sum_duration = sum(m["duration_min"] for m in movies if m["rating"] > 7)
 print(f"Суммарная длительность фильмов с рейтингом > 7: {sum_duration} мин.")
+
+#Этап 9
+def build_report(movies):
+    """Объединяет результаты всех предыдущих этапов и выводит единый отчет."""
+    print("ОТЧЕТ ПО КАТАЛОГУ\n")
+    print(f"Средний рейтинг: {average_rating(movies)}\n")
+
+    _, _, avg_age = catalog_age_stats(movies)
+    print(f"Средний возраст фильмов: {avg_age} лет\n")
+    print()
+
+    print("Топ-3 фильма:")
+    top3 = sorted(movies, key=lambda m: m["rating"], reverse=True)[:3]
+    for m in top3:
+        title = normalize_title(m["title"])
+        duration = duration_in_hours(m["duration_min"])
+        genres = ", ".join(sorted(m["genres"]))
+        print(f'"{title}" ({m["year"]}) – {m["rating"]}/10, {duration}, жанры: {genres}')
+    print()
+
+    print("Фильмов по жанрам:")
+    counts = count_by_genre(movies)
+    for g, c in sorted(counts.items(), key=lambda x: (-x[1], x[0])):
+        print(f"{g} - {c}")
+    print()
+
+    print(f"Все жанры каталога: {', '.join(sorted(all_genres(movies)))}")
