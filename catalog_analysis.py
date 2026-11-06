@@ -1,6 +1,9 @@
-﻿movies = [
+﻿import math
+
+movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
-     "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
+     "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", 
+                                                    "O. Isaac"]},
     {"title": "Kitchen Stories", "year": 2019, "genres": {"comedy", "drama"},
      "rating": 7.1, "duration_min": 98, "actors": ["A. Novak", "M. Ferguson"]},
     {"title": "silent hours", "year": 2016, "genres": {"thriller", "drama"},
@@ -21,15 +24,13 @@
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
 
-import math
-
 #Этап 1
 def average_rating(movies):
     """Возвращает среднюю оценку оценку по каталогу, округленную до одного знака."""
     return round(sum(m["rating"] for m in movies) / len(movies), 1)
 
 def catalog_age_stats(movies, current_year=2026):
-    """Возвращает кортеж (самый старый фильм в годах, самый новый фильм в годах, среднее)."""
+    """Возвращает кортеж (самый старый фильм, самый новый фильм, среднее)."""
     ages = [current_year - m["year"] for m in movies]
     oldest = max(ages)
     newest = min(ages)
@@ -110,7 +111,9 @@ def format_report_line(movie):
     title = normalize_title(movie["title"])
     duration = duration_in_hours(movie["duration_min"])
     genres = ", ".join(sorted(movie["genres"]))
-    return f'"{title}" ({movie["year"]}) - {movie["rating"]}/10, {duration}, жанры: {genres}'
+    return (
+        f'"{title}" ({movie["year"]}) - {movie["rating"]}/10, {duration}, жанры: {genres}'
+    )
 
 #Этап 5
 def titles_sorted_by_rating(movies):
@@ -187,7 +190,7 @@ def iter_high_rated(movies, min_rating=8.0):
 for movie in iter_high_rated(movies):
     print(format_report_line(movie))
 
-#Генераторное выражение, которое считает суммарную длительность всех фильмов с рейтингом выше 7 в минутах
+#Генераторное выражение, считает суммарную длительность фильмов с рейтингом > 7 в минутах
 sum_duration = sum(m["duration_min"] for m in movies if m["rating"] > 7)
 print(f"Суммарная длительность фильмов с рейтингом > 7: {sum_duration} мин.")
 
@@ -207,7 +210,9 @@ def build_report(movies):
         title = normalize_title(m["title"])
         duration = duration_in_hours(m["duration_min"])
         genres = ", ".join(sorted(m["genres"]))
-        print(f'"{title}" ({m["year"]}) – {m["rating"]}/10, {duration}, жанры: {genres}')
+        print(
+            f'"{title}" ({m["year"]}) – {m["rating"]}/10, {duration}, жанры: {genres}'
+            )
     print()
 
     print("Фильмов по жанрам:")
