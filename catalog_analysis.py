@@ -112,7 +112,8 @@ def format_report_line(movie):
     duration = duration_in_hours(movie["duration_min"])
     genres = ", ".join(sorted(movie["genres"]))
     return (
-        f'"{title}" ({movie["year"]}) - {movie["rating"]}/10, {duration}, жанры: {genres}'
+        f'"{title}" ({movie["year"]}) - {movie["rating"]}/10, '
+        f'{duration}, жанры: {genres}'
     )
 
 #Этап 5
@@ -190,7 +191,7 @@ def iter_high_rated(movies, min_rating=8.0):
 for movie in iter_high_rated(movies):
     print(format_report_line(movie))
 
-#Генераторное выражение, считает суммарную длительность фильмов с рейтингом > 7 в минутах
+#Генераторное выражение, считает общую длительность фильмов с рейтингом > 7 в минутах
 sum_duration = sum(m["duration_min"] for m in movies if m["rating"] > 7)
 print(f"Суммарная длительность фильмов с рейтингом > 7: {sum_duration} мин.")
 
